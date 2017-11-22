@@ -1,0 +1,7 @@
+1) importan lesson learned from Akamai - some maven depencencies are created with
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.7.1</version>
+      and some require
+      <type>pom</type>
+        usually those are the onces who redirect or use other poms
