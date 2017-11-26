@@ -45,7 +45,7 @@ public class Main {
     @Test
     public void google_test1() throws InterruptedException{
 
-        server.newHar("youtube.com");
+        server.newHar("ahaskjldeh.com");
 
 
         driver.get("http://www.google.com/xhtml");
