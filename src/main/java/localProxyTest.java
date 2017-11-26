@@ -1,32 +1,29 @@
 package proxy;
 
-import java.io.File;
-import java.io.IOException;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Proxy;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.core.har.Har;
-
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import net.lightbody.bmp.proxy.CaptureType;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.IOException;
 
-
-
-
-public class MobProxy {
+public class localProxyTest {
     public static WebDriver driver;
     public static BrowserMobProxyServer server;
 
-    @BeforeClass
-    public void setup() throws Exception {
+    public static void main(String[] args) {
+
 
         server = new BrowserMobProxyServer();
         server.start();
@@ -34,31 +31,25 @@ public class MobProxy {
         Proxy proxy = ClientUtil.createSeleniumProxy(server);
 
         DesiredCapabilities seleniumCapabilities = new DesiredCapabilities();
-        System.setProperty("webdriver.chrome.driver", "C:\\Webdrivers\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "/Users/smiroshn/work/chromedriver/chromedriver");
 
         seleniumCapabilities.setCapability(CapabilityType.PROXY, proxy);
 
-        driver = new ChromeDriver(seleniumCapabilities);
+        driver = new ChromeDriver();
         System.out.println("Port started:" + port);
-    }
+        server.newHar("http://localhost:8000/proxy/login#/web-security-analytics");
+        driver.get("http://localhost:8000/proxy/login#/web-security-analytics");
 
-    @Test
-    public void teknosa_test1() throws InterruptedException {
-
-        server.newHar("teknosa.har");
-
-        driver.get("http://www.teknosa.com");
-        driver.manage().window().maximize();
-        Thread.sleep(15000);
-    }
-
-    @AfterClass
-    public void shutdown() {
         try {
 
             // Get the HAR data
             Har har = server.getHar();
-            File harFile = new File("C:\\Webdrivers\\teknosa_test.har");
+
+
+            File harFile = new File("/Users/smiroshn/work/WSA.json");
+
+            har.getLog().getEntries().removeIf(x-> !x.getRequest().getMethod().equals("GET"));
+            har.getLog().getEntries();
             har.writeTo(harFile);
 
         } catch (IOException ioe) {
@@ -67,4 +58,5 @@ public class MobProxy {
         driver.quit();
         server.stop();
     }
+
 }
