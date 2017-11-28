@@ -39,6 +39,11 @@ public class localProxyTest {
         System.out.println("Port started:" + port);
         server.newHar("http://localhost:8000/proxy/login#/web-security-analytics");
         driver.get("http://localhost:8000/proxy/login#/web-security-analytics");
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         try {
 
