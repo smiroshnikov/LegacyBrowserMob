@@ -29,6 +29,7 @@ public class UserAPI {
         } finally {
             file.flush();
             file.close();
+            System.out.println("fucking git ");
         }
 
     }
