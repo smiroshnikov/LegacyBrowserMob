@@ -1,30 +1,37 @@
 package proxy;
 
-public class UserApi {
 
-    String userName;
-    String userEmail;
-    String userPhone;
+import org.json.simple.JSONObject;
 
-    public UserApi(String userName, String userEmail, String userPhone) {
-        this.userName = userName;
-        this.userEmail = userEmail;
-        this.userPhone = userPhone;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class UserAPI {
+//    User user = new User();
+
+    @SuppressWarnings("unchecked")
+    public void populateJSON(User user) throws IOException {
+        JSONObject obj = new JSONObject();
+        obj.put("Name", user.userName);
+        obj.put("Email", user.userEmail);
+        obj.put("Phone", user.userPhone);
+
+        System.out.println(obj.toJSONString());
+
+
+        FileWriter file = new FileWriter("/Users/smiroshn/Desktop/user.json");
+        try {
+
+            file.write(obj.toJSONString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            file.flush();
+            file.close();
+        }
+
     }
 
-    public UserApi() {
-        this.userName = "default";
-        this.userEmail = "default";
-        this.userPhone = "default";
-    }
 
-    @Override
-    public String toString() {
-        return "UserApi{" +
-                "userName='" + userName + '\'' +
-                ", userEmail='" + userEmail + '\'' +
-                ", userPhone='" + userPhone + '\'' +
-                '}';
-    }
 }
-
