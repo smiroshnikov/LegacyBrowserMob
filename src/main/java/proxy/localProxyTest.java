@@ -53,7 +53,7 @@ public class localProxyTest {
 
             File harFile = new File("/Users/smiroshn/work/WSA.json");
 
-            har.getLog().getEntries().removeIf(x-> !x.getRequest().getMethod().equals("GET"));
+//            har.getLog().getEntries().removeIf(x-> !x.getRequest().getMethod().equals("GET"));
             har.getLog().getEntries();
             har.writeTo(harFile);
 
