@@ -1,13 +1,11 @@
-package proxy;
+package learnProxyMob;
 
 
 import org.json.simple.JSONObject;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class UserAPI {
-//    User user = new User();
 
     @SuppressWarnings("unchecked")
     public void populateJSON(User user) throws IOException {
@@ -29,8 +27,13 @@ public class UserAPI {
         } finally {
             file.flush();
             file.close();
-            System.out.println("fucking git ");
         }
+
+    }
+
+
+    public void readJSON(File file) {
+//        JSONParser parser = new JSONParser("/Users/smiroshn/Desktop/user.json");
 
     }
 

@@ -1,4 +1,4 @@
-package proxy;
+package learnProxyMob;
 
 public class User {
 
